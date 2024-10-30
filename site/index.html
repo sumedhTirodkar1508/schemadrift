@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Diff two GraphQL schemas and use observed field traffic to prioritize real breaking changes.">
+  <title>Schema Drift · Working Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#results">Skip to results</a>
+  <header class="masthead"><a class="brand" href="https://github.com/sumedhTirodkar1508/schemadrift">Schema Drift</a><span class="build-state"><i></i> live computation</span></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">GraphQL change gate</p>
+      <h1>Run the decision,<br><em>inspect the evidence.</em></h1>
+      <p class="lede">Diff two GraphQL schemas and use observed field traffic to prioritize real breaking changes.</p>
+    </section>
+    <section class="workspace" aria-label="Interactive project workspace">
+      <form id="workspace-form" class="control-panel">
+        <div class="panel-heading"><span>01</span><div><p>Inputs</p><h2>Configure the run</h2></div></div>
+        <div class="fields"><label class="field" for="beforeSchema"><span>Current schema</span><textarea id="beforeSchema" name="beforeSchema" rows="10">type Query { user: User reports: [Report!]! }
+type User { id: ID! email: String! legacyCode: String }</textarea></label>
+<label class="field" for="afterSchema"><span>Proposed schema</span><textarea id="afterSchema" name="afterSchema" rows="10">type Query { user: User }
+type User { id: ID! email: String }</textarea></label>
+<label class="field" for="usage"><span>Field usage as JSON</span><textarea id="usage" name="usage" rows="6">{&quot;Query.reports&quot;:18420,&quot;User.email&quot;:9300,&quot;User.legacyCode&quot;:0}</textarea></label>
+<label class="field" for="lookbackDays"><span>Usage lookback</span><input id="lookbackDays" name="lookbackDays" type="number" value="30" min="1" max="365" step="any" data-suggested-step="1"></label></div>
+        <div class="actions"><button class="run" type="submit">Run analysis <span>→</span></button><button id="reset-button" class="reset" type="button">Reset</button></div>
+      </form>
+      <section id="results" class="result-panel" aria-live="polite" aria-busy="true">
+        <div class="panel-heading"><span>02</span><div><p>Output</p><h2>Decision trace</h2></div></div>
+        <div id="result-content" class="result-content"><div class="loading">Computing initial scenario…</div></div>
+      </section>
+    </section>
+  </main>
+  <footer><p>Built from the tested logic in <a href="https://github.com/sumedhTirodkar1508/schemadrift">sumedhTirodkar1508/schemadrift</a>.</p></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
